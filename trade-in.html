@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade-In Your Vehicle | MotorHub Kenya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #d4af37;
+            --accent: #e31837;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            position: relative;
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--secondary);
+        }
+
+        nav ul li a i {
+            margin-left: 5px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        nav ul li:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+            width: 100%;
+        }
+
+        .dropdown-menu li a {
+            padding: 12px 15px;
+            display: block;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-actions a {
+            margin-left: 15px;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+
+        .page-content {
+            padding: 60px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #c19b2a;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: #0f2a47;
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #c1121f;
+        }
+
+        /* Trade-In Content */
+        .trade-in-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .benefit-card {
+            background-color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .process-step {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .process-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: -50px;
+            width: 100px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 15px;
+        }
+
+        /* Trade-In Form */
+        .trade-in-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .trade-in-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-option input, .checkbox-option input {
+            margin-right: 8px;
+        }
+
+        .file-upload {
+            border: 2px dashed var(--light-gray);
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .file-upload:hover {
+            border-color: var(--secondary);
+        }
+
+        .file-upload i {
+            font-size: 2rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .uploaded-files {
+            margin-top: 15px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--light-gray);
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .file-item button {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* Trade-In Info */
+        .trade-in-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-card h3 i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .valuation-calculator {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px;
+            border-radius: 5px;
+        }
+
+        .calculator-title {
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .calculator-result {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .estimated-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 10px 0;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 60px;
+        }
+
+        .faq-item {
+            background-color: white;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .contact-info li i {
+            margin-right: 10px;
+            color: var(--secondary);
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .trade-in-container {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step:not(:last-child):after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                width: 100%;
+            }
+
+            nav ul li a {
+                padding: 12px 20px;
+                display: block;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                width: 100%;
+                display: none;
+            }
+
+            nav ul li:hover .dropdown-menu {
+                display: block;
+            }
+
+            .user-actions {
+                margin-left: auto;
+                margin-right: 15px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .process-step {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Additional Styles for Trade-In Page */
+        .page-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title-main {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title-main:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 10px auto 0;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .form-actions .btn {
+            flex: 1;
+        }
+
+        .condition-notes {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .slider-container {
+            margin-top: 10px;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 5px;
+            background: var(--light-gray);
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div>
+                <i class="fas fa-phone"></i> +254 700 123 456 | 
+                <i class="fas fa-envelope"></i> info@motorhub.co.ke
+            </div>
+            <div>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-car"></i> Motor<span>Hub</span>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li>
+                        <a href="cars.html">Cars</i></a>
+                    </li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="trade-in.html" class="active">Trade-In</a></li>
+                    <li><a href="financing.html">Financing</a></li>
+                    <li><a href="service-center.html">Service Center</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <a href="wishlist.html"><i class="far fa-heart"></i></a>
+                <a href="login.html"><i class="far fa-user"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Trade-In Your Vehicle</h1>
+            <p>Get the best value for your current car when you upgrade to a MotorHub premium vehicle</p>
+        </div>
+    </section>
+
+    <!-- Trade-In Content -->
+    <section class="page-content">
+        <div class="container">
+            <div class="trade-in-intro">
+                <p>Upgrade to your dream car with ease! Our trade-in program offers competitive valuations, quick processing, and a seamless transition to your new vehicle. Fill out the form below to get an instant estimate of your car's value.</p>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Best Value Guarantee</h3>
+                    <p>We offer competitive prices based on current market trends and vehicle condition.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Quick Process</h3>
+                    <p>Get your valuation within 24 hours and complete the trade-in in as little as one day.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Hassle-Free</h3>
+                    <p>We handle all paperwork and documentation for a smooth transaction.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3>Special Offers</h3>
+                    <p>Enjoy exclusive discounts on new vehicles when you trade in with us.</p>
+                </div>
+            </div>
+
+            <!-- Process Steps -->
+            <h2 class="section-title-main">How It Works</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Submit Details</h3>
+                    <p>Fill out the trade-in form with your vehicle information</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Get Valuation</h3>
+                    <p>Receive a competitive valuation within 24 hours</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Vehicle Inspection</h3>
+                    <p>Schedule a physical inspection at our center</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Complete Trade-In</h3>
+                    <p>Finalize paperwork and drive away in your new car</p>
+                </div>
+            </div>
+
+            <!-- Trade-In Form & Info -->
+            <div class="trade-in-container">
+                <!-- Trade-In Form -->
+                <div class="trade-in-form">
+                    <h2 class="section-title-main">Vehicle Information</h2>
+                    <form id="tradeInForm">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3 class="section-title"><i class="fas fa-user"></i> Personal Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number *</label>
+                                    <input type="tel" id="phone" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location *</label>
+                                <select id="location" class="form-control" required>
+                                    <option value="">Select Your Location</option>
+                                    <option value="nairobi">Nairobi</option>
+                                    <option value="mombasa">Mombasa</option>
+                                    <option value="kisumu">Kisumu</option>
+                                    <option value="nakuru">Nakuru</option>
+                                    <option value="eldoret">Eldoret</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Vehicle Details -->
+                        <div class="form-section">
+                            <h3 class="section-title"><i class="fas fa-car"></i> Vehicle Details</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="make">Make *</label>
+                                    <select id="make" class="form-control" required>
+                                        <option value="">Select Make</option>
+                                        <option value="toyota">Toyota</option>
+                                        <option value="mercedes">Mercedes-Benz</option>
+                                        <option value="bmw">BMW</option>
+                                        <option value="audi">Audi</option>
+                                        <option value="honda">Honda</option>
+                                        <option value="nissan">Nissan</option>
+                                        <option value="ford">Ford</option>
+                                        <option value="volkswagen">Volkswagen</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="model">Model *</label>
+                                    <input type="text" id="model" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="year">Year *</label>
+                                    <select id="year" class="form-control" required>
+                                        <option value="">Select Year</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2011">2011</option>
+                                        <option value="2010">2010</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mileage">Mileage (km) *</label>
+                                    <input type="number" id="mileage" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="transmission">Transmission *</label>
+                                    <select id="transmission" class="form-control" required>
+                                        <option value="">Select Transmission</option>
+                                        <option value="automatic">Automatic</option>
+                                        <option value="manual">Manual</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fuel">Fuel Type *</label>
+                                    <select id="fuel" class="form-control" required>
+                                        <option value="">Select Fuel Type</option>
+                                        <option value="petrol">Petrol</option>
+                                        <option value="diesel">Diesel</option>
+                                        <option value="hybrid">Hybrid</option>
+                                        <option value="electric">Electric</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vehicle Condition -->
+                        <div class="form-section">
+                            <h3 class="section-title"><i class="fas fa-clipboard-check"></i> Vehicle Condition</h3>
+                            <div class="form-group">
+                                <label>Overall Condition *</label>
+                                <div class="slider-container">
+                                    <input type="range" min="1" max="5" value="3" class="range-slider" id="condition">
+                                    <div class="slider-labels">
+                                        <span>Poor</span>
+                                        <span>Fair</span>
+                                        <span>Good</span>
+                                        <span>Very Good</span>
+                                        <span>Excellent</span>
+                                    </div>
+                                </div>
+                                <div class="condition-notes">
+                                    <p>Poor: Significant wear, damage, or mechanical issues | Fair: Some wear but functional | Good: Normal wear for age | Very Good: Well maintained | Excellent: Like new condition</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Service History</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="service-full" name="service" value="full">
+                                        <label for="service-full">Full Service History</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="service-partial" name="service" value="partial">
+                                        <label for="service-partial">Partial Service History</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="service-none" name="service" value="none">
+                                        <label for="service-none">No Service History</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Any Accidents or Damage?</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="accident-yes" name="accident" value="yes">
+                                        <label for="accident-yes">Yes</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="accident-no" name="accident" value="no" checked>
+                                        <label for="accident-no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="additional-info">Additional Information</label>
+                                <textarea id="additional-info" class="form-control" rows="4" placeholder="Any additional details about your vehicle..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Vehicle Images -->
+                        <div class="form-section">
+                            <h3 class="section-title"><i class="fas fa-camera"></i> Vehicle Images</h3>
+                            <div class="file-upload" id="fileUpload">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload images of your vehicle</p>
+                                <p class="condition-notes">Recommended: Front, Back, Sides, Interior, Engine, and any damage</p>
+                                <input type="file" id="vehicleImages" class="file-input" multiple accept="image/*">
+                            </div>
+                            <div class="uploaded-files" id="uploadedFiles">
+                                <!-- Uploaded files will appear here -->
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="reset" class="btn">Reset Form</button>
+                            <button type="submit" class="btn btn-accent">Get Valuation</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Trade-In Information -->
+                <div class="trade-in-info">
+                    <!-- Valuation Calculator -->
+                    <div class="valuation-calculator">
+                        <h3 class="calculator-title">Instant Valuation Estimate</h3>
+                        <p>Based on similar vehicles in the Kenyan market, your estimated trade-in value is:</p>
+                        <div class="calculator-result">
+                            <p>Estimated Value</p>
+                            <div class="estimated-value">KES 0</div>
+                            <p>Fill out the form for a precise valuation</p>
+                        </div>
+                    </div>
+
+                    <!-- Why Trade-In Info -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-question-circle"></i> Why Trade-In With MotorHub?</h3>
+                        <ul>
+                            <li>Competitive market-based valuations</li>
+                            <li>Quick and hassle-free process</li>
+                            <li>No hidden fees or charges</li>
+                            <li>Professional inspection service</li>
+                            <li>Seamless transition to your new vehicle</li>
+                            <li>Special trade-in discounts available</li>
+                        </ul>
+                    </div>
+
+                    <!-- What We Accept -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-check-circle"></i> What We Accept</h3>
+                        <ul>
+                            <li>All makes and models of vehicles</li>
+                            <li>Cars, SUVs, and pickup trucks</li>
+                            <li>Vehicles up to 15 years old</li>
+                            <li>Both petrol and diesel engines</li>
+                            <li>Vehicles with minor cosmetic issues</li>
+                            <li>Imported and locally purchased vehicles</li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-headset"></i> Need Assistance?</h3>
+                        <p>Our trade-in specialists are ready to help you through the process.</p>
+                        <p><strong>Phone:</strong> +254 700 123 456</p>
+                        <p><strong>Email:</strong> tradein@motorhub.co.ke</p>
+                        <p><strong>Hours:</strong> Mon-Fri 8AM-6PM, Sat 9AM-4PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2 class="section-title-main">Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does the trade-in process take?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>After submitting your details, you'll receive a valuation within 24 hours. If you accept the offer, we can complete the inspection and paperwork in as little as one day, depending on your availability.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need to have my vehicle serviced before trading it in?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, you don't need to service your vehicle before the trade-in. We'll assess its current condition and provide a valuation based on that. However, a well-maintained vehicle with service history typically receives a higher valuation.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What documents do I need for the trade-in?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You'll need your original logbook, national ID, and any service records you have. If there's an outstanding loan on the vehicle, you'll also need the loan settlement information.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I trade in a vehicle that has an outstanding loan?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we can handle vehicles with outstanding loans. We'll work with your financial institution to settle the loan as part of the trade-in process. The settlement amount will be deducted from your trade-in value.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What if my vehicle needs repairs?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept vehicles in all conditions, including those needing repairs. Our valuation will account for any necessary repairs, so you don't need to fix anything before trading in your vehicle.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MotorHub Kenya</h3>
+                    <p>Your trusted partner for premium vehicles in Kenya. We offer a wide selection of new and pre-owned cars with exceptional service and support.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cars.html">Cars</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="trade-in.html">Trade-In</a></li>
+                        <li><a href="financing.html">Financing</a></li>
+                        <li><a href="service-center.html">Service Center</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>MotorHub Center, Mombasa Road<br>Nairobi, Kenya</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <div>+254 700 123 456</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>info@motorhub.co.ke</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <div>Mon - Fri: 8:00 AM - 6:00 PM<br>Sat: 9:00 AM - 4:00 PM</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form>
+                        <input type="email" class="form-control" placeholder="Your Email" style="margin-bottom: 10px;">
+                        <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MotorHub Kenya. All Rights Reserved. | <a href="#" style="color: rgba(255,255,255,0.7);">Privacy Policy</a> | <a href="#" style="color: rgba(255,255,255,0.7);">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // File Upload Functionality
+        const fileUpload = document.getElementById('fileUpload');
+        const fileInput = document.getElementById('vehicleImages');
+        const uploadedFiles = document.getElementById('uploadedFiles');
+
+        fileUpload.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function() {
+            uploadedFiles.innerHTML = '';
+            if (fileInput.files.length > 0) {
+                for (let i = 0; i < fileInput.files.length; i++) {
+                    const file = fileInput.files[i];
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <span>${file.name}</span>
+                        <button type="button" class="remove-file" data-index="${i}"><i class="fas fa-times"></i></button>
+                    `;
+                    uploadedFiles.appendChild(fileItem);
+                }
+
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-file').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        removeFile(index);
+                    });
+                });
+            }
+        });
+
+        function removeFile(index) {
+            // Create a new FileList without the removed file
+            const dt = new DataTransfer();
+            for (let i = 0; i < fileInput.files.length; i++) {
+                if (i !== index) {
+                    dt.items.add(fileInput.files[i]);
+                }
+            }
+            fileInput.files = dt.files;
+            
+            // Trigger change event to update the display
+            const event = new Event('change');
+            fileInput.dispatchEvent(event);
+        }
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const item = this.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Form Submission
+        document.getElementById('tradeInForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic form validation
+            const requiredFields = this.querySelectorAll('[required]');
+            let valid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    valid = false;
+                    field.style.borderColor = 'var(--accent)';
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
+            
+            if (valid) {
+                // Show success message
+                alert('Thank you for your trade-in request! We will contact you within 24 hours with your vehicle valuation.');
+                this.reset();
+                uploadedFiles.innerHTML = '';
+                
+                // Reset condition slider
+                document.getElementById('condition').value = 3;
+            } else {
+                alert('Please fill in all required fields marked with *.');
+            }
+        });
+
+        // Condition Slider Update
+        const conditionSlider = document.getElementById('condition');
+        conditionSlider.addEventListener('input', function() {
+            updateValuationEstimate();
+        });
+
+        // Update valuation based on form inputs
+        function updateValuationEstimate() {
+            // This is a simplified example - in a real application, this would
+            // connect to a backend service for accurate valuation
+            const year = document.getElementById('year').value;
+            const condition = document.getElementById('condition').value;
+            
+            if (year && condition) {
+                // Base value for a 2020 vehicle in good condition
+                let baseValue = 2000000;
+                
+                // Adjust for year
+                const yearDiff = 2023 - parseInt(year);
+                baseValue -= yearDiff * 150000;
+                
+                // Adjust for condition (1-5 scale)
+                const conditionMultiplier = 0.5 + (parseInt(condition) * 0.1);
+                baseValue *= conditionMultiplier;
+                
+                // Ensure value doesn't go below a minimum
+                baseValue = Math.max(baseValue, 300000);
+                
+                // Format and display
+                const formattedValue = new Intl.NumberFormat('en-KE', {
+                    style: 'currency',
+                    currency: 'KES',
+                    maximumFractionDigits: 0
+                }).format(baseValue);
+                
+                document.querySelector('.estimated-value').textContent = formattedValue;
+            }
+        }
+
+        // Update valuation when relevant fields change
+        document.getElementById('year').addEventListener('change', updateValuationEstimate);
+        document.getElementById('make').addEventListener('change', updateValuationEstimate);
+        document.getElementById('model').addEventListener('input', updateValuationEstimate);
+        document.getElementById('mileage').addEventListener('input', updateValuationEstimate);
+    </script>
+</body>
+</html>

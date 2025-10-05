@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Center | MotorHub Kenya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #d4af37;
+            --accent: #e31837;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            position: relative;
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--secondary);
+        }
+
+        nav ul li a i {
+            margin-left: 5px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        nav ul li:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+            width: 100%;
+        }
+
+        .dropdown-menu li a {
+            padding: 12px 15px;
+            display: block;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-actions a {
+            margin-left: 15px;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+
+        .page-content {
+            padding: 60px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #c19b2a;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: #0f2a47;
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #c1121f;
+        }
+
+        /* Service Intro */
+        .service-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .benefit-card {
+            background-color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Service Booking */
+        .service-booking {
+            margin: 60px 0;
+        }
+
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .booking-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .booking-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-card h3 i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        /* Form Elements */
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-option input, .checkbox-option input {
+            margin-right: 8px;
+        }
+
+        .calendar-container {
+            margin-top: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-day {
+            text-align: center;
+            padding: 8px 5px;
+            font-weight: 600;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .calendar-date {
+            text-align: center;
+            padding: 10px 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .calendar-date:hover {
+            background-color: var(--light-gray);
+        }
+
+        .calendar-date.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .calendar-date.unavailable {
+            color: var(--light-gray);
+            cursor: not-allowed;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .time-slot {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .time-slot:hover {
+            background-color: var(--light-gray);
+        }
+
+        .time-slot.selected {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .time-slot.unavailable {
+            color: var(--light-gray);
+            cursor: not-allowed;
+        }
+
+        /* Services Offered */
+        .services-section {
+            margin: 60px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .service-features li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .service-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Service Packages */
+        .packages-section {
+            margin: 60px 0;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .package-card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .package-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .package-header h3 {
+            margin-bottom: 5px;
+        }
+
+        .package-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .package-price span {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+
+        .package-features {
+            padding: 20px;
+        }
+
+        .package-features ul {
+            list-style: none;
+        }
+
+        .package-features li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .package-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .package-features li.unavailable {
+            color: var(--gray);
+        }
+
+        .package-features li.unavailable:before {
+            content: '✗';
+            color: var(--gray);
+        }
+
+        .package-actions {
+            padding: 0 20px 20px;
+            text-align: center;
+        }
+
+        /* Technicians Section */
+        .technicians-section {
+            margin: 60px 0;
+        }
+
+        .technicians-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .technician-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .technician-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .technician-specialty {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .technician-experience {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .technician-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background-color: var(--light-gray);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 60px;
+        }
+
+        .faq-item {
+            background-color: white;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 60px;
+            border-radius: 5px;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .contact-info li i {
+            margin-right: 10px;
+            color: var(--secondary);
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .booking-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                width: 100%;
+            }
+
+            nav ul li a {
+                padding: 12px 20px;
+                display: block;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                width: 100%;
+                display: none;
+            }
+
+            nav ul li:hover .dropdown-menu {
+                display: block;
+            }
+
+            .user-actions {
+                margin-left: auto;
+                margin-right: 15px;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid, .services-grid, .packages-grid, .technicians-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .time-slots {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Additional Styles for Service Page */
+        .page-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 10px auto 0;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .form-actions .btn {
+            flex: 1;
+        }
+
+        .service-hours {
+            margin-top: 20px;
+        }
+
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .hours-table tr {
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .hours-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .hours-table td {
+            padding: 8px 0;
+        }
+
+        .hours-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .current-day {
+            color: var(--secondary);
+        }
+
+        .emergency-contact {
+            background-color: var(--accent);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div>
+                <i class="fas fa-phone"></i> +254 700 123 456 | 
+                <i class="fas fa-envelope"></i> info@motorhub.co.ke
+            </div>
+            <div>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twi
+tter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-car"></i> Motor<span>Hub</span>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li>
+                        <a href="cars.html">Cars <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="cars/all-stock.html">All Stock</a></li>
+                            <li><a href="cars/in-stock.html">In Stock</a></li>
+                            <li><a href="cars/shipping.html">Shipping (Imports)</a></li>
+                            <li><a href="cars/new-arrivals.html">New Arrivals</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="trade-in.html">Trade-In</a></li>
+                    <li><a href="financing.html">Financing</a></li>
+                    <li><a href="service-center.html" class="active">Service Center</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <a href="wishlist.html"><i class="far fa-heart"></i></a>
+                <a href="login.html"><i class="far fa-user"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Service Center</h1>
+            <p>Professional maintenance and repair services for your vehicle</p>
+        </div>
+    </section>
+
+    <!-- Service Content -->
+    <section class="page-content">
+        <div class="container">
+            <div class="service-intro">
+                <p>At MotorHub Kenya, we provide comprehensive automotive services to keep your vehicle running at its best. Our certified technicians use state-of-the-art equipment and genuine parts to ensure your car receives the care it deserves.</p>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <h3>Certified Technicians</h3>
+                    <p>Our team consists of factory-trained technicians with years of experience.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Genuine Parts</h3>
+                    <p>We use only genuine parts to ensure optimal performance and longevity.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Quick Service</h3>
+                    <p>Most services completed within 24 hours with our efficient workflow.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Service Warranty</h3>
+                    <p>All our services come with a comprehensive warranty for your peace of mind.</p>
+                </div>
+            </div>
+
+            <!-- Service Booking -->
+            <div class="service-booking">
+                <h2 class="section-title">Book a Service</h2>
+                <div class="booking-container">
+                    <div class="booking-form">
+                        <form id="serviceBooking">
+                            <!-- Personal Information -->
+                            <div class="form-section">
+                                <h3 class="section-title"><i class="fas fa-user"></i> Personal Information</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name *</label>
+                                        <input type="text" id="firstName" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name *</label>
+                                        <input type="text" id="lastName" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="email">Email Address *</label>
+                                        <input type="email" id="email" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number *</label>
+                                        <input type="tel" id="phone" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vehicle Information -->
+                            <div class="form-section">
+                                <h3 class="section-title"><i class="fas fa-car"></i> Vehicle Information</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="make">Make *</label>
+                                        <select id="make" class="form-control" required>
+                                            <option value="">Select Make</option>
+                                            <option value="toyota">Toyota</option>
+                                            <option value="mercedes">Mercedes-Benz</option>
+                                            <option value="bmw">BMW</option>
+                                            <option value="audi">Audi</option>
+                                            <option value="honda">Honda</option>
+                                            <option value="nissan">Nissan</option>
+                                            <option value="ford">Ford</option>
+                                            <option value="volkswagen">Volkswagen</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="model">Model *</label>
+                                        <input type="text" id="model" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="year">Year *</label>
+                                        <select id="year" class="form-control" required>
+                                            <option value="">Select Year</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2015">2015</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mileage">Current Mileage (km)</label>
+                                        <input type="number" id="mileage" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Service Selection -->
+                            <div class="form-section">
+                                <h3 class="section-title"><i class="fas fa-concierge-bell"></i> Service Selection</h3>
+                                <div class="form-group">
+                                    <label>Service Type *</label>
+                                    <div class="radio-group">
+                                        <div class="radio-option">
+                                            <input type="radio" id="service-routine" name="serviceType" value="routine" checked>
+                                            <label for="service-routine">Routine Maintenance</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="service-repair" name="serviceType" value="repair">
+                                            <label for="service-repair">Repair Service</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="service-diagnostic" name="serviceType" value="diagnostic">
+                                            <label for="service-diagnostic">Diagnostic Check</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="service-details">Service Details *</label>
+                                    <select id="service-details" class="form-control" required>
+                                        <option value="">Select Service</option>
+                                        <option value="oil-change">Oil Change & Filter Replacement</option>
+                                        <option value="brake-service">Brake Inspection & Service</option>
+                                        <option value="tire-rotation">Tire Rotation & Balancing</option>
+                                        <option value="battery-check">Battery Check & Replacement</option>
+                                        <option value="engine-diagnostic">Engine Diagnostic</option>
+                                        <option value="ac-service">A/C Service & Repair</option>
+                                        <option value="transmission-service">Transmission Service</option>
+                                        <option value="suspension-service">Suspension & Steering</option>
+                                        <option value="other">Other (Please specify in notes)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="service-notes">Additional Notes</label>
+                                    <textarea id="service-notes" class="form-control" rows="3" placeholder="Any specific issues or concerns..."></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Appointment Scheduling -->
+                            <div class="form-section">
+                                <h3 class="section-title"><i class="fas fa-calendar-alt"></i> Schedule Appointment</h3>
+                                <div class="calendar-container">
+                                    <div class="calendar-header">
+                                        <button type="button" id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                                        <h4 id="current-month">June 2023</h4>
+                                        <button type="button" id="next-month"><i class="fas fa-chevron-right"></i></button>
+                                    </div>
+                                    <div class="calendar-grid" id="calendar-dates">
+                                        <!-- Calendar will be generated by JavaScript -->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Preferred Time Slot *</label>
+                                    <div class="time-slots" id="time-slots">
+                                        <!-- Time slots will be generated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="form-actions">
+                                <button type="reset" class="btn">Reset Form</button>
+                                <button type="submit" class="btn btn-accent">Book Appointment</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Booking Information -->
+                    <div class="booking-info">
+                        <!-- Service Hours -->
+                        <div class="info-card">
+                            <h3><i class="fas fa-clock"></i> Service Hours</h3>
+                            <div class="service-hours">
+                                <table class="hours-table">
+                                    <tr>
+                                        <td>Monday - Friday</td>
+                                        <td>8:00 AM - 6:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Saturday</td>
+                                        <td>9:00 AM - 4:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sunday</td>
+                                        <td>Closed</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="emergency-contact">
+                                <p><strong>Emergency Roadside Assistance:</strong><br>+254 711 123 456</p>
+                            </div>
+                        </div>
+
+                        <!-- What to Bring -->
+                        <div class="info-card">
+                            <h3><i class="fas fa-clipboard-list"></i> What to Bring</h3>
+                            <ul>
+                                <li>Vehicle logbook</li>
+                                <li>Previous service records (if any)</li>
+                                <li>Vehicle insurance information</li>
+                                <li>Your identification document</li>
+                            </ul>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="info-card">
+                            <h3><i class="fas fa-headset"></i> Need Assistance?</h3>
+                            <p>Our service advisors are ready to help you with any questions.</p>
+                            <p><strong>Phone:</strong> +254 700 123 456</p>
+                            <p><strong>Email:</strong> service@motorhub.co.ke</p>
+                            <p><strong>Address:</strong> MotorHub Center, Mombasa Road, Nairobi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services Offered -->
+            <div class="services-section">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-oil-can"></i>
+                        </div>
+                        <h3>Routine Maintenance</h3>
+                        <p>Keep your vehicle running smoothly with our comprehensive maintenance services.</p>
+                        <ul class="service-features">
+                            <li>Oil & Filter Changes</li>
+                            <li>Fluid Checks & Top-ups</li>
+                            <li>Brake Inspection</li>
+                            <li>Tire Rotation & Balancing</li>
+                            <li>Battery Testing</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Repair Services</h3>
+                        <p>Expert repairs for all makes and models using genuine parts.</p>
+                        <ul class="service-features">
+                            <li>Engine & Transmission Repair</li>
+                            <li>Brake System Repair</li>
+                            <li>Suspension & Steering</li>
+                            <li>Electrical System Repair</li>
+                            <li>Exhaust System Repair</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Diagnostic Services</h3>
+                        <p>Advanced diagnostic tools to identify and resolve vehicle issues.</p>
+                        <ul class="service-features">
+                            <li>Computerized Diagnostics</li>
+                            <li>Engine Performance Analysis</li>
+                            <li>Electrical System Diagnostics</li>
+                            <li>Emissions Testing</li>
+                            <li>Pre-purchase Inspections</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Packages -->
+            <div class="packages-section">
+                <h2 class="section-title">Service Packages</h2>
+                <div class="packages-grid">
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3>Essential Care</h3>
+                            <div class="package-price">KES 8,500<span>/service</span></div>
+                        </div>
+                        <div class="package-features">
+                            <ul>
+                                <li>Oil & Filter Change</li>
+                                <li>Fluid Level Checks</li>
+                                <li>Tire Pressure Check</li>
+                                <li>Brake Inspection</li>
+                                <li>Battery Test</li>
+                                <li class="unavailable">Air Filter Replacement</li>
+                                <li class="unavailable">Cabin Air Filter</li>
+                            </ul>
+                        </div>
+                        <div class="package-actions">
+                            <a href="#" class="btn">Select Package</a>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <div class="package-header" style="background-color: var(--secondary);">
+                            <h3>Premium Care</h3>
+                            <div class="package-price">KES 15,000<span>/service</span></div>
+                        </div>
+                        <div class="package-features">
+                            <ul>
+                                <li>All Essential Care Services</li>
+                                <li>Air Filter Replacement</li>
+                                <li>Cabin Air Filter Replacement</li>
+                                <li>Fuel System Cleaning</li>
+                                <li>Wheel Alignment Check</li>
+                                <li>Comprehensive Vehicle Inspection</li>
+                                <li>Interior & Exterior Wash</li>
+                            </ul>
+                        </div>
+                        <div class="package-actions">
+                            <a href="#" class="btn btn-accent">Select Package</a>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3>Ultimate Care</h3>
+                            <div class="package-price">KES 25,000<span>/service</span></div>
+                        </div>
+                        <div class="package-features">
+                            <ul>
+                                <li>All Premium Care Services</li>
+                                <li>Transmission Fluid Service</li>
+                                <li>Brake Fluid Replacement</li>
+                                <li>Coolant System Flush</li>
+                                <li>Spark Plug Replacement</li>
+                                <li>Comprehensive Diagnostic Scan</li>
+                                <li>1 Year Service Warranty</li>
+                            </ul>
+                        </div>
+                        <div class="package-actions">
+                            <a href="#" class="btn">Select Package</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technicians Section -->
+            <div class="technicians-section">
+                <h2 class="section-title">Meet Our Technicians</h2>
+                <div class="technicians-grid">
+                    <div class="technician-card">
+                        <div class="technician-photo" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');"></div>
+                        <h3>James Kariuki</h3>
+                        <div class="technician-specialty">Master Technician</div>
+                        <div class="technician-experience">15+ years experience</div>
+                        <p>Specializes in European vehicles and advanced diagnostics.</p>
+                        <div class="technician-skills">
+                            <span class="skill-tag">BMW</span>
+                            <span class="skill-tag">Mercedes</span>
+                            <span class="skill-tag">Audi</span>
+                        </div>
+                    </div>
+
+                    <div class="technician-card">
+                        <div class="technician-photo" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');"></div>
+                        <h3>David Omondi</h3>
+                        <div class="technician-specialty">Electrical Systems Specialist</div>
+                        <div class="technician-experience">12 years experience</div>
+                        <p>Expert in automotive electrical systems and computer diagnostics.</p>
+                        <div class="technician-skills">
+                            <span class="skill-tag">Electrical</span>
+                            <span class="skill-tag">Diagnostics</span>
+                            <span class="skill-tag">Hybrid Systems</span>
+                        </div>
+                    </div>
+
+                    <div class="technician-card">
+                        <div class="technician-photo" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');"></div>
+                        <h3>Sarah Wanjiku</h3>
+                        <div class="technician-specialty">Transmission Specialist</div>
+                        <div class="technician-experience">10 years experience</div>
+                        <p>Specializes in automatic and manual transmission systems.</p>
+                        <div class="technician-skills">
+                            <span class="skill-tag">Transmissions</span>
+                            <span class="skill-tag">Toyota</span>
+                            <span class="skill-tag">Honda</span>
+                        </div>
+                    </div>
+
+                    <div class="technician-card">
+                        <div class="technician-photo" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');"></div>
+                        <h3>Michael Otieno</h3>
+                        <div class="technician-specialty">Brake & Suspension Expert</div>
+                        <div class="technician-experience">8 years experience</div>
+                        <p>Expert in brake systems, suspension, and steering components.</p>
+                        <div class="technician-skills">
+                            <span class="skill-tag">Brakes</span>
+                            <span class="skill-tag">Suspension</span>
+                            <span class="skill-tag">Alignment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How often should I service my vehicle?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We recommend servicing your vehicle every 10,000 km or 6 months, whichever comes first. However, this can vary based on your vehicle's make, model, and driving conditions. Consult your owner's manual or speak with our service advisors for specific recommendations.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you use genuine parts?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we use genuine OEM (Original Equipment Manufacturer) parts for all repairs and services. This ensures optimal performance, reliability, and maintains your vehicle's warranty. We can also discuss high-quality aftermarket options if preferred.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does a typical service take?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Most routine services like oil changes and basic maintenance take 1-2 hours. More comprehensive services or repairs may take 4-6 hours. Complex issues might require keeping the vehicle overnight. We provide accurate time estimates when you book your appointment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer loaner vehicles during service?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer complimentary loaner vehicles for services that require keeping your vehicle overnight. Availability is subject to demand, so we recommend requesting a loaner vehicle when booking your appointment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is your service warranty?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer a 12-month/20,000 km warranty on all parts and labor for repairs. Routine maintenance services are covered by a 6-month warranty. All warranty details are provided in writing when you collect your vehicle.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <div class="cta-content">
+                    <h2>Ready to Service Your Vehicle?</h2>
+                    <p>Book an appointment today and experience the MotorHub difference. Our certified technicians are ready to provide your vehicle with the care it deserves.</p>
+                    <div class="form-actions" style="justify-content: center; margin-top: 30px;">
+                        <a href="#service-booking" class="btn btn-accent" style="margin-right: 15px;">Book Now</a>
+                        <a href="contact.html" class="btn">Contact Service Department</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MotorHub Kenya</h3>
+                    <p>Your trusted partner for premium vehicles in Kenya. We offer a wide selection of new and pre-owned cars with exceptional service and support.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cars.html">Cars</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="trade-in.html">Trade-In</a></li>
+                        <li><a href="financing.html">Financing</a></li>
+                        <li><a href="service-center.html">Service Center</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>MotorHub Center, Mombasa Road<br>Nairobi, Kenya</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <div>+254 700 123 456</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>info@motorhub.co.ke</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <div>Mon - Fri: 8:00 AM - 6:00 PM<br>Sat: 9:00 AM - 4:00 PM</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form>
+                        <input type="email" class="form-control" placeholder="Your Email" style="margin-bottom: 10px;">
+                        <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MotorHub Kenya. All Rights Reserved. | <a href="#" style="color: rgba(255,255,255,0.7);">Privacy Policy</a> | <a href="#" style="color: rgba(255,255,255,0.7);">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // Calendar Functionality
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar-dates');
+            const monthYear = document.getElementById('current-month');
+            
+            // Set month and year
+            const options = { month: 'long', year: 'numeric' };
+            monthYear.textContent = currentDate.toLocaleDateString('en-US', options);
+            
+            // Clear previous calendar
+            calendar.innerHTML = '';
+            
+            // Add day headers
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+                calendar.appendChild(dayElement);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < startingDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-date';
+                calendar.appendChild(emptyCell);
+            }
+            
+            // Add days of the month
+            const today = new Date();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dateElement = document.createElement('div');
+                dateElement.className = 'calendar-date';
+                dateElement.textContent = i;
+                
+                // Check if this date is in the past
+                const cellDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                if (cellDate < today) {
+                    dateElement.classList.add('unavailable');
+                } else {
+                    dateElement.addEventListener('click', function() {
+                        // Remove selected class from all dates
+                        document.querySelectorAll('.calendar-date').forEach(date => {
+                            date.classList.remove('selected');
+                        });
+                        
+                        // Add selected class to clicked date
+                        this.classList.add('selected');
+                        
+                        // Store selected date
+                        selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                        
+                        // Update time slots
+                        updateTimeSlots();
+                    });
+                }
+                
+                calendar.appendChild(dateElement);
+            }
+        }
+
+        // Time Slots Functionality
+        function updateTimeSlots() {
+            const timeSlotsContainer = document.getElementById('time-slots');
+            timeSlotsContainer.innerHTML = '';
+            
+            if (!selectedDate) return;
+            
+            // Define available time slots
+            const timeSlots = [
+                '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
+                '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'
+            ];
+            
+            // Randomly mark some slots as unavailable for demo purposes
+            const unavailableSlots = [2, 5]; // Indices of unavailable slots
+            
+            timeSlots.forEach((slot, index) => {
+                const slotElement = document.createElement('div');
+                slotElement.className = 'time-slot';
+                slotElement.textContent = slot;
+                
+                if (unavailableSlots.includes(index)) {
+                    slotElement.classList.add('unavailable');
+                } else {
+                    slotElement.addEventListener('click', function() {
+                        // Remove selected class from all time slots
+                        document.querySelectorAll('.time-slot').forEach(slot => {
+                            slot.classList.remove('selected');
+                        });
+                        
+                        // Add selected class to clicked slot
+                        this.classList.add('selected');
+                        
+                        // Store selected time
+                        selectedTime = slot;
+                    });
+                }
+                
+                timeSlotsContainer.appendChild(slotElement);
+            });
+        }
+
+        // Calendar Navigation
+        document.getElementById('prev-month').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('next-month').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const item = this.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Form Submission
+        document.getElementById('serviceBooking').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic form validation
+            const requiredFields = this.querySelectorAll('[required]');
+            let valid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    valid = false;
+                    field.style.borderColor = 'var(--accent)';
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
+            
+            if (!selectedDate) {
+                alert('Please select a date for your appointment.');
+                valid = false;
+            }
+            
+            if (!selectedTime) {
+                alert('Please select a time slot for your appointment.');
+                valid = false;
+            }
+            
+            if (valid) {
+                // Format selected date
+                const formattedDate = selectedDate.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                
+                // Show success message
+                alert(`Thank you for booking a service appointment!\n\nYour appointment is scheduled for:\n${formattedDate} at ${selectedTime}\n\nWe will send a confirmation email shortly.`);
+                this.reset();
+                
+                // Reset calendar and time slots
+                selectedDate = null;
+                selectedTime = null;
+                renderCalendar();
+                updateTimeSlots();
+            } else {
+                alert('Please fill in all required fields and select an appointment date and time.');
+            }
+        });
+
+        // Initialize calendar on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCalendar();
+        });
+    </script>
+</body>
+</html>

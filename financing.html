@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Financing & Loan Calculator | MotorHub Kenya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #d4af37;
+            --accent: #e31837;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            position: relative;
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--secondary);
+        }
+
+        nav ul li a i {
+            margin-left: 5px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        nav ul li:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+            width: 100%;
+        }
+
+        .dropdown-menu li a {
+            padding: 12px 15px;
+            display: block;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-actions a {
+            margin-left: 15px;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+
+        .page-content {
+            padding: 60px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #c19b2a;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: #0f2a47;
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #c1121f;
+        }
+
+        /* Financing Intro */
+        .financing-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .benefit-card {
+            background-color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Loan Calculator */
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .calculator-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .calculator-result {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        .range-container {
+            margin-top: 10px;
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 5px;
+            background: var(--light-gray);
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+        }
+
+        .range-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .calculator-title {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .result-total {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .result-note {
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* Financing Options */
+        .financing-options {
+            margin: 60px 0;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .option-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .option-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .option-features {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .option-features li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .option-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Application Process */
+        .application-process {
+            margin: 60px 0;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .process-step {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .process-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: -50px;
+            width: 100px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 15px;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .partner-logo {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+        }
+
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 60px;
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+        }
+
+        .partner-logo:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 60px;
+        }
+
+        .faq-item {
+            background-color: white;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 60px;
+            border-radius: 5px;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .contact-info li i {
+            margin-right: 10px;
+            color: var(--secondary);
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step:not(:last-child):after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                width: 100%;
+            }
+
+            nav ul li a {
+                padding: 12px 20px;
+                display: block;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                width: 100%;
+                display: none;
+            }
+
+            nav ul li:hover .dropdown-menu {
+                display: block;
+            }
+
+            .user-actions {
+                margin-left: auto;
+                margin-right: 15px;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .process-step {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid, .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Additional Styles for Financing Page */
+        .page-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 10px auto 0;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .form-actions .btn {
+            flex: 1;
+        }
+
+        .chart-container {
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .chart {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .chart-bar {
+            width: 40px;
+            background-color: var(--secondary);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .interest-rate {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rate-badge {
+            background-color: var(--accent);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div>
+                <i class="fas fa-phone"></i> +254 700 123 456 | 
+                <i class="fas fa-envelope"></i> info@motorhub.co.ke
+            </div>
+            <div>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-car"></i> Motor<span>Hub</span>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li>
+                        <a href="cars.html">Cars</i></a>
+                    </li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="trade-in.html">Trade-In</a></li>
+                    <li><a href="financing.html" class="active">Financing</a></li>
+                    <li><a href="service-center.html">Service Center</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <a href="wishlist.html"><i class="far fa-heart"></i></a>
+                <a href="login.html"><i class="far fa-user"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Vehicle Financing Solutions</h1>
+            <p>Affordable financing options to drive your dream car today</p>
+        </div>
+    </section>
+
+    <!-- Financing Content -->
+    <section class="page-content">
+        <div class="container">
+            <div class="financing-intro">
+                <p>At MotorHub Kenya, we make owning your dream vehicle easier than ever. With flexible financing options, competitive interest rates, and a simple application process, you can drive away in the car you've always wanted.</p>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3>Low Interest Rates</h3>
+                    <p>Competitive rates starting from 8.5% for qualified buyers with flexible repayment terms.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Quick Approval</h3>
+                    <p>Get pre-approved within 24 hours and complete your purchase in as little as 2 days.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Flexible Terms</h3>
+                    <p>Choose repayment periods from 12 to 84 months with options to suit your budget.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>No Hidden Fees</h3>
+                    <p>Transparent pricing with no surprise charges or early repayment penalties.</p>
+                </div>
+            </div>
+
+            <!-- Loan Calculator -->
+            <h2 class="section-title">Loan Calculator</h2>
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <form id="loanCalculator">
+                        <div class="form-group">
+                            <label for="car-price">Vehicle Price (KES)</label>
+                            <input type="number" id="car-price" class="form-control" value="2500000" min="0" step="10000">
+                            <div class="range-container">
+                                <input type="range" id="car-price-range" class="range-slider" min="500000" max="20000000" value="2500000" step="10000">
+                                <div class="range-values">
+                                    <span>500,000</span>
+                                    <span>20,000,000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="down-payment">Down Payment (KES)</label>
+                            <input type="number" id="down-payment" class="form-control" value="500000" min="0" step="10000">
+                            <div class="range-container">
+                                <input type="range" id="down-payment-range" class="range-slider" min="0" max="20000000" value="500000" step="10000">
+                                <div class="range-values">
+                                    <span>0</span>
+                                    <span>20,000,000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loan-term">Loan Term (Months)</label>
+                            <input type="number" id="loan-term" class="form-control" value="48" min="12" max="84" step="6">
+                            <div class="range-container">
+                                <input type="range" id="loan-term-range" class="range-slider" min="12" max="84" value="48" step="6">
+                                <div class="range-values">
+                                    <span>12</span>
+                                    <span>84</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interest-rate">Interest Rate (%)</label>
+                            <div class="interest-rate">
+                                <input type="number" id="interest-rate" class="form-control" value="9.5" min="8.5" max="15" step="0.1">
+                                <span class="rate-badge">From 8.5%</span>
+                            </div>
+                            <div class="range-container">
+                                <input type="range" id="interest-rate-range" class="range-slider" min="8.5" max="15" value="9.5" step="0.1">
+                                <div class="range-values">
+                                    <span>8.5%</span>
+                                    <span>15%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="reset" class="btn">Reset</button>
+                            <button type="button" class="btn btn-accent" id="calculate-btn">Calculate</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="calculator-result">
+                    <h3 class="calculator-title">Your Loan Summary</h3>
+                    <div class="result-item">
+                        <span>Loan Amount:</span>
+                        <span id="loan-amount">KES 2,000,000</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Monthly Payment:</span>
+                        <span id="monthly-payment">KES 50,250</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Total Interest:</span>
+                        <span id="total-interest">KES 412,000</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Total Payment:</span>
+                        <span id="total-payment">KES 2,412,000</span>
+                    </div>
+                    
+                    <div class="result-total" id="payment-total">KES 50,250/month</div>
+                    
+                    <div class="chart-container">
+                        <p>Payment Breakdown</p>
+                        <div class="chart" id="payment-chart">
+                            <!-- Chart will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <p class="result-note">These calculations are estimates. Actual terms may vary based on credit assessment.</p>
+                </div>
+            </div>
+
+            <!-- Financing Options -->
+            <div class="financing-options">
+                <h2 class="section-title">Financing Options</h2>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <div class="option-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3>Bank Financing</h3>
+                        <p>Partnered with leading banks for competitive rates and flexible terms.</p>
+                        <ul class="option-features">
+                            <li>Interest rates from 8.5%</li>
+                            <li>Loan terms up to 7 years</li>
+                            <li>Financing up to 90% of vehicle value</li>
+                            <li>Fast approval process</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+
+                    <div class="option-card">
+                        <div class="option-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3>In-House Financing</h3>
+                        <p>Direct financing through MotorHub for quick and convenient approval.</p>
+                        <ul class="option-features">
+                            <li>Minimal documentation required</li>
+                            <li>Approval within 24 hours</li>
+                            <li>Flexible down payment options</li>
+                            <li>No prepayment penalties</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+
+                    <div class="option-card">
+                        <div class="option-icon">
+                            <i class="fas fa-business-time"></i>
+                        </div>
+                        <h3>Corporate Financing</h3>
+                        <p>Specialized solutions for businesses and fleet purchases.</p>
+                        <ul class="option-features">
+                            <li>Customized payment plans</li>
+                            <li>Fleet management support</li>
+                            <li>Tax benefits guidance</li>
+                            <li>Dedicated account manager</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Process -->
+            <div class="application-process">
+                <h2 class="section-title">How to Apply</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3>Pre-Qualification</h3>
+                        <p>Check your eligibility and get pre-approved without affecting your credit score.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3>Submit Documents</h3>
+                        <p>Provide required documents including ID, proof of income, and bank statements.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3>Approval</h3>
+                        <p>Receive loan approval within 24 hours with your customized terms.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h3>Drive Away</h3>
+                        <p>Complete paperwork and drive away in your new vehicle.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banking Partners -->
+            <div class="partners-section">
+                <h2 class="section-title">Our Banking Partners</h2>
+                <p>We work with Kenya's leading financial institutions to bring you the best financing options.</p>
+                <div class="partners-grid">
+                    <div class="partner-logo">
+                        <!-- In a real implementation, these would be actual bank logos -->
+                        <span>Equity Bank</span>
+                    </div>
+                    <div class="partner-logo">
+                        <span>KCB Bank</span>
+                    </div>
+                    <div class="partner-logo">
+                        <span>Co-operative Bank</span>
+                    </div>
+                    <div class="partner-logo">
+                        <span>NCBA Bank</span>
+                    </div>
+                    <div class="partner-logo">
+                        <span>Absa Bank</span>
+                    </div>
+                    <div class="partner-logo">
+                        <span>Stanbic Bank</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What documents do I need to apply for financing?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You'll need a copy of your national ID, proof of income (pay slips or bank statements for the last 3 months), and a completed application form. For business financing, additional documents like business registration certificates may be required.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does the approval process take?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For most applicants, we provide pre-approval within 4 hours and full approval within 24-48 hours after receiving all required documents. The process may take longer for complex applications or if additional verification is needed.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is the minimum down payment required?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The minimum down payment is typically 10% of the vehicle's value, but this can vary based on your credit profile, the vehicle age, and the financing option you choose. In some cases, we can offer financing with as little as 5% down payment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I pay off my loan early?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can pay off your loan early without any prepayment penalties. Early repayment can save you money on interest charges. Contact our financing department to discuss early settlement options.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you finance imported vehicles?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we finance both locally purchased and imported vehicles. For imported vehicles, we require additional documentation including the import declaration form and proof of ownership. The vehicle must also meet Kenyan roadworthiness standards.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <div class="cta-content">
+                    <h2>Ready to Drive Your Dream Car?</h2>
+                    <p>Apply for financing today and get pre-approved in as little as 4 hours. Our financing specialists are ready to help you find the perfect payment plan for your budget.</p>
+                    <div class="form-actions" style="justify-content: center; margin-top: 30px;">
+                        <a href="contact.html" class="btn btn-accent" style="margin-right: 15px;">Apply Now</a>
+                        <a href="contact.html" class="btn">Contact Our Financing Team</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MotorHub Kenya</h3>
+                    <p>Your trusted partner for premium vehicles in Kenya. We offer a wide selection of new and pre-owned cars with exceptional service and support.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cars.html">Cars</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="trade-in.html">Trade-In</a></li>
+                        <li><a href="financing.html">Financing</a></li>
+                        <li><a href="service-center.html">Service Center</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>MotorHub Center, Mombasa Road<br>Nairobi, Kenya</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <div>+254 700 123 456</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>info@motorhub.co.ke</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <div>Mon - Fri: 8:00 AM - 6:00 PM<br>Sat: 9:00 AM - 4:00 PM</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form>
+                        <input type="email" class="form-control" placeholder="Your Email" style="margin-bottom: 10px;">
+                        <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MotorHub Kenya. All Rights Reserved. | <a href="#" style="color: rgba(255,255,255,0.7);">Privacy Policy</a> | <a href="#" style="color: rgba(255,255,255,0.7);">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // Loan Calculator Functionality
+        const calculateBtn = document.getElementById('calculate-btn');
+        const carPriceInput = document.getElementById('car-price');
+        const carPriceRange = document.getElementById('car-price-range');
+        const downPaymentInput = document.getElementById('down-payment');
+        const downPaymentRange = document.getElementById('down-payment-range');
+        const loanTermInput = document.getElementById('loan-term');
+        const loanTermRange = document.getElementById('loan-term-range');
+        const interestRateInput = document.getElementById('interest-rate');
+        const interestRateRange = document.getElementById('interest-rate-range');
+
+        // Sync range sliders with number inputs
+        carPriceInput.addEventListener('input', function() {
+            carPriceRange.value = this.value;
+            updateDownPaymentMax();
+            calculateLoan();
+        });
+
+        carPriceRange.addEventListener('input', function() {
+            carPriceInput.value = this.value;
+            updateDownPaymentMax();
+            calculateLoan();
+        });
+
+        downPaymentInput.addEventListener('input', function() {
+            downPaymentRange.value = this.value;
+            calculateLoan();
+        });
+
+        downPaymentRange.addEventListener('input', function() {
+            downPaymentInput.value = this.value;
+            calculateLoan();
+        });
+
+        loanTermInput.addEventListener('input', function() {
+            loanTermRange.value = this.value;
+            calculateLoan();
+        });
+
+        loanTermRange.addEventListener('input', function() {
+            loanTermInput.value = this.value;
+            calculateLoan();
+        });
+
+        interestRateInput.addEventListener('input', function() {
+            interestRateRange.value = this.value;
+            calculateLoan();
+        });
+
+        interestRateRange.addEventListener('input', function() {
+            interestRateInput.value = this.value;
+            calculateLoan();
+        });
+
+        // Update down payment max based on car price
+        function updateDownPaymentMax() {
+            const carPrice = parseInt(carPriceInput.value);
+            downPaymentInput.max = carPrice;
+            downPaymentRange.max = carPrice;
+        }
+
+        // Calculate loan function
+        function calculateLoan() {
+            const carPrice = parseFloat(carPriceInput.value) || 0;
+            const downPayment = parseFloat(downPaymentInput.value) || 0;
+            const loanTerm = parseInt(loanTermInput.value) || 0;
+            const interestRate = parseFloat(interestRateInput.value) || 0;
+            
+            // Calculate loan amount
+            const loanAmount = carPrice - downPayment;
+            
+            // Calculate monthly payment using the formula: 
+            // P = (Pv * r) / (1 - (1 + r)^(-n))
+            // Where Pv = loan amount, r = monthly interest rate, n = number of payments
+            const monthlyInterest = interestRate / 100 / 12;
+            const numberOfPayments = loanTerm;
+            
+            let monthlyPayment = 0;
+            let totalInterest = 0;
+            let totalPayment = 0;
+            
+            if (loanAmount > 0 && monthlyInterest > 0 && numberOfPayments > 0) {
+                monthlyPayment = (loanAmount * monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments)) / 
+                                (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
+                
+                totalPayment = monthlyPayment * numberOfPayments;
+                totalInterest = totalPayment - loanAmount;
+            } else if (loanAmount > 0 && numberOfPayments > 0) {
+                // If interest rate is 0%
+                monthlyPayment = loanAmount / numberOfPayments;
+                totalPayment = loanAmount;
+                totalInterest = 0;
+            }
+            
+            // Update results
+            document.getElementById('loan-amount').textContent = formatCurrency(loanAmount);
+            document.getElementById('monthly-payment').textContent = formatCurrency(monthlyPayment);
+            document.getElementById('total-interest').textContent = formatCurrency(totalInterest);
+            document.getElementById('total-payment').textContent = formatCurrency(totalPayment);
+            document.getElementById('payment-total').textContent = formatCurrency(monthlyPayment) + '/month';
+            
+            // Update chart
+            updateChart(loanAmount, totalInterest);
+        }
+
+        // Format currency for display
+        function formatCurrency(amount) {
+            return 'KES ' + amount.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
+        }
+
+        // Update payment chart
+        function updateChart(principal, interest) {
+            const chart = document.getElementById('payment-chart');
+            chart.innerHTML = '';
+            
+            const principalPercent = (principal / (principal + interest)) * 100;
+            const interestPercent = (interest / (principal + interest)) * 100;
+            
+            // Create principal bar
+            const principalBar = document.createElement('div');
+            principalBar.className = 'chart-bar';
+            principalBar.style.height = `${principalPercent}%`;
+            principalBar.innerHTML = `<div class="chart-label">Principal</div>`;
+            chart.appendChild(principalBar);
+            
+            // Create interest bar
+            const interestBar = document.createElement('div');
+            interestBar.className = 'chart-bar';
+            interestBar.style.height = `${interestPercent}%`;
+            interestBar.style.backgroundColor = 'var(--accent)';
+            interestBar.innerHTML = `<div class="chart-label">Interest</div>`;
+            chart.appendChild(interestBar);
+        }
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const item = this.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Initialize calculator on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDownPaymentMax();
+            calculateLoan();
+        });
+
+        // Calculate button event
+        calculateBtn.addEventListener('click', calculateLoan);
+    </script>
+</body>
+</html>

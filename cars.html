@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Inventory | MotorHub Kenya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #d4af37;
+            --accent: #e31837;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            position: relative;
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--secondary);
+        }
+
+        nav ul li a i {
+            margin-left: 5px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        nav ul li:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+            width: 100%;
+        }
+
+        .dropdown-menu li a {
+            padding: 12px 15px;
+            display: block;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-actions a {
+            margin-left: 15px;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+
+        .page-content {
+            padding: 60px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #c19b2a;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: #0f2a47;
+        }
+
+        /* Cars Listing */
+        .cars-listing {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        .sidebar-filter {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .filter-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .search-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .search-btn:hover {
+            background-color: #c1121f;
+        }
+
+        .cars-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .car-card {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .car-image {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .car-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .car-details {
+            padding: 20px;
+        }
+
+        .car-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .car-specs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .car-spec {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .car-spec i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+
+        .car-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .car-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .car-actions .btn {
+            flex: 1;
+            margin: 0 5px;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .view-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sort-options select {
+            padding: 8px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            background-color: white;
+        }
+
+        .view-toggle {
+            display: flex;
+        }
+
+        .view-toggle button {
+            background: white;
+            border: 1px solid var(--light-gray);
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-toggle button:first-child {
+            border-radius: 4px 0 0 4px;
+            border-right: none;
+        }
+
+        .view-toggle button:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+
+        .view-toggle button.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 0 5px;
+            background-color: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+
+        .pagination a.active, .pagination a:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .contact-info li i {
+            margin-right: 10px;
+            color: var(--secondary);
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .cars-listing {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-filter {
+                order: 2;
+                position: static;
+            }
+
+            .cars-results {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                width: 100%;
+            }
+
+            nav ul li a {
+                padding: 12px 20px;
+                display: block;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                width: 100%;
+                display: none;
+            }
+
+            nav ul li:hover .dropdown-menu {
+                display: block;
+            }
+
+            .user-actions {
+                margin-left: auto;
+                margin-right: 15px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .car-actions {
+                flex-direction: column;
+            }
+
+            .car-actions .btn {
+                margin: 5px 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cars-results {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .view-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sort-options {
+                margin-bottom: 15px;
+            }
+        }
+
+        /* Additional Styles for Cars Page */
+        .page-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .results-count {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+
+        .price-range {
+            display: flex;
+            gap: 10px;
+        }
+
+        .price-range input {
+            flex: 1;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .filter-section:last-child {
+            border-bottom: none;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-option input {
+            margin-right: 8px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .car-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .feature-tag {
+            background-color: var(--light-gray);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div>
+                <i class="fas fa-phone"></i> +254 700 123 456 | 
+                <i class="fas fa-envelope"></i> info@motorhub.co.ke
+            </div>
+            <div>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-car"></i> Motor<span>Hub</span>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li>
+                        <a href="cars.html" class="active">Cars</i></a>
+                    </li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="trade-in.html">Trade-In</a></li>
+                    <li><a href="financing.html">Financing</a></li>
+                    <li><a href="service-center.html">Service Center</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <a href="wishlist.html"><i class="far fa-heart"></i></a>
+                <a href="login.html"><i class="far fa-user"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Vehicle Collection</h1>
+            <p>Discover the perfect vehicle for your lifestyle from our extensive inventory</p>
+        </div>
+    </section>
+
+    <!-- Cars Listing Section -->
+    <section class="page-content">
+        <div class="container">
+            <div class="view-options">
+                <div class="sort-options">
+                    <label for="sort-by">Sort by: </label>
+                    <select id="sort-by">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="year-new">Year: Newest First</option>
+                        <option value="year-old">Year: Oldest First</option>
+                        <option value="mileage-low">Mileage: Low to High</option>
+                    </select>
+                </div>
+                <div class="view-toggle">
+                    <button class="active" title="Grid View"><i class="fas fa-th"></i></button>
+                    <button title="List View"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+
+            <div class="results-count">
+                Showing <strong>24</strong> of <strong>142</strong> vehicles
+            </div>
+
+            <div class="cars-listing">
+                <!-- Sidebar Filter -->
+                <aside class="sidebar-filter">
+                    <h3 class="filter-title">Filter Vehicles</h3>
+                    
+                    <div class="filter-section">
+                        <div class="form-group">
+                            <label for="make-filter">Make</label>
+                            <select id="make-filter" class="form-control">
+                                <option value="">All Makes</option>
+                                <option value="toyota">Toyota</option>
+                                <option value="mercedes">Mercedes-Benz</option>
+                                <option value="bmw">BMW</option>
+                                <option value="audi">Audi</option>
+                                <option value="honda">Honda</option>
+                                <option value="nissan">Nissan</option>
+                                <option value="ford">Ford</option>
+                                <option value="volkswagen">Volkswagen</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="model-filter">Model</label>
+                            <select id="model-filter" class="form-control">
+                                <option value="">All Models</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="form-group">
+                            <label for="price-range">Price Range</label>
+                            <div class="price-range">
+                                <input type="number" id="price-min" class="form-control" placeholder="Min" min="0">
+                                <input type="number" id="price-max" class="form-control" placeholder="Max" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="form-group">
+                            <label for="year-filter">Year</label>
+                            <select id="year-filter" class="form-control">
+                                <option value="">Any Year</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                                <option value="2015">2015</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <label>Body Style</label>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <input type="checkbox" id="body-suv" value="suv">
+                                <label for="body-suv">SUV</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="body-sedan" value="sedan">
+                                <label for="body-sedan">Sedan</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="body-hatchback" value="hatchback">
+                                <label for="body-hatchback">Hatchback</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="body-coupe" value="coupe">
+                                <label for="body-coupe">Coupe</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="body-convertible" value="convertible">
+                                <label for="body-convertible">Convertible</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="body-pickup" value="pickup">
+                                <label for="body-pickup">Pickup</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <label>Fuel Type</label>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <input type="checkbox" id="fuel-petrol" value="petrol">
+                                <label for="fuel-petrol">Petrol</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="fuel-diesel" value="diesel">
+                                <label for="fuel-diesel">Diesel</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="fuel-hybrid" value="hybrid">
+                                <label for="fuel-hybrid">Hybrid</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="fuel-electric" value="electric">
+                                <label for="fuel-electric">Electric</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <label>Transmission</label>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <input type="checkbox" id="trans-automatic" value="automatic">
+                                <label for="trans-automatic">Automatic</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="trans-manual" value="manual">
+                                <label for="trans-manual">Manual</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <label>Features</label>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <input type="checkbox" id="feature-leather" value="leather">
+                                <label for="feature-leather">Leather Seats</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="feature-sunroof" value="sunroof">
+                                <label for="feature-sunroof">Sunroof</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="feature-nav" value="navigation">
+                                <label for="feature-nav">Navigation</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="feature-backup" value="backup-camera">
+                                <label for="feature-backup">Backup Camera</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="feature-heated" value="heated-seats">
+                                <label for="feature-heated">Heated Seats</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="search-btn">Apply Filters</button>
+                    <button type="button" class="btn" style="width: 100%; margin-top: 10px;">Reset Filters</button>
+                </aside>
+
+                <!-- Cars Results -->
+                <div class="cars-results">
+                    <div class="car-card">
+                        <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');">
+                            <span class="car-badge">New Arrival</span>
+                        </div>
+                        <div class="car-details">
+                            <h3 class="car-title">Toyota Land Cruiser V8</h3>
+                            <div class="car-specs">
+                                <div class="car-spec"><i class="fas fa-calendar-alt"></i> 2021</div>
+                                <div class="car-spec"><i class="fas fa-gas-pump"></i> Petrol</div>
+                                <div class="car-spec"><i class="fas fa-cog"></i> Automatic</div>
+                                <div class="car-spec"><i class="fas fa-tachometer-alt"></i> 18,500 km</div>
+                            </div>
+                            <div class="car-features">
+                                <span class="feature-tag">Leather Seats</span>
+                                <span class="feature-tag">Sunroof</span>
+                                <span class="feature-tag">Navigation</span>
+                            </div>
+                            <div class="car-price">KES 18,500,000</div>
+                            <div class="car-actions">
+                                <a href="#" class="btn">More Details</a>
+                                <a href="#" class="btn btn-primary">Get a Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="car-card">
+                        <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                            <span class="car-badge">Premium</span>
+                        </div>
+                        <div class="car-details">
+                            <h3 class="car-title">Mercedes-Benz GLE</h3>
+                            <div class="car-specs">
+                                <div class="car-spec"><i class="fas fa-calendar-alt"></i> 2022</div>
+                                <div class="car-spec"><i class="fas fa-gas-pump"></i> Diesel</div>
+                                <div class="car-spec"><i class="fas fa-cog"></i> Automatic</div>
+                                <div class="car-spec"><i class="fas fa-tachometer-alt"></i> 12,300 km</div>
+                            </div>
+                            <div class="car-features">
+                                <span class="feature-tag">Leather Seats</span>
+                                <span class="feature-tag">Panoramic Roof</span>
+                                <span class="feature-tag">Premium Sound</span>
+                            </div>
+                            <div class="car-price">KES 12,800,000</div>
+                            <div class="car-actions">
+                                <a href="#" class="btn">More Details</a>
+                                <a href="#" class="btn btn-primary">Get a Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="car-card">
+                        <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                            <span class="car-badge">Certified</span>
+                        </div>
+                        <div class="car-details">
+                            <h3 class="car-title">BMW X5</h3>
+                            <div class="car-specs">
+                                <div class="car-spec"><i class="fas fa-calendar-alt"></i> 2022</div>
+                                <div class="car-spec"><i class="fas fa-gas-pump"></i> Petrol</div>
+                                <div class="car-spec"><i class="fas fa-cog"></i> Automatic</div>
+                                <div class="car-spec"><i class="fas fa-tachometer-alt"></i> 15,700 km</div>
+                            </div>
+                            <div class="car-features">
+                                <span class="feature-tag">Heated Seats</span>
+                                <span class="feature-tag">Head-Up Display</span>
+                                <span class="feature-tag">Parking Assist</span>
+                            </div>
+                            <div class="car-price">KES 11,200,000</div>
+                            <div class="car-actions">
+                                <a href="#" class="btn">More Details</a>
+                                <a href="#" class="btn btn-primary">Get a Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="car-card">
+                        <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                            <span class="car-badge">Low Mileage</span>
+                        </div>
+                        <div class="car-details">
+                            <h3 class="car-title">Audi Q7</h3>
+                            <div class="car-specs">
+                                <div class="car-spec"><i class="fas fa-calendar-alt"></i> 2021</div>
+                                <div class="car-spec"><i class="fas fa-gas-pump"></i> Diesel</div>
+                                <div class="car-spec"><i class="fas fa-cog"></i> Automatic</div>
+                                <div class="car-spec"><i class="fas fa-tachometer-alt"></i> 9,800 km</div>
+                            </div>
+                            <div class="car-features">
+                                <span class="feature-tag">Virtual Cockpit</span>
+                                <span class="feature-tag">Quattro AWD</span>
+                                <span class="feature-tag">Premium Package</span>
+                            </div>
+                            <div class="car-price">KES 10,500,000</div>
+                            <div class="car-actions">
+                                <a href="#" class="btn">More Details</a>
+                                <a href="#" class="btn btn-primary">Get a Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="car-card">
+                        <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                            <span class="car-badge">Best Seller</span>
+                        </div>
+                        <div class="car-details">
+                            <h3 class="car-title">Toyota Prado TX</h3>
+                            <div class="car-specs">
+                                <div class="car-spec"><i class="fas fa-calendar-alt"></i> 2020</div>
+                                <div class="car-spec"><i class="fas fa-gas-pump"></i> Diesel</div>
+                                <div class="car-spec"><i class="fas fa-cog"></i> Automatic</div>
+                                <div class="car-spec"><i class="fas fa-tachometer-alt"></i> 45,200 km</div>
+                            </div>
+                            <div class="car-features">
+                                <span class="feature-tag">7 Seater</span>
+                                <span class="feature-tag">All-Terrain</span>
+                                <span class="feature-tag">Dual AC</span>
+                            </div>
+                            <div class="car-price">KES 8,200,000</div>
+                            <div class="car-actions">
+                                <a href="#" class="btn">More Details</a>
+                                <a href="#" class="btn btn-primary">Get a Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="car-card">
+                        <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1593941707882-a5bba5338b59?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');">
+                            <span class="car-badge">Executive</span>
+                        </div>
+                        <div class="car-details">
+                            <h3 class="car-title">Mercedes-Benz C200</h3>
+                            <div class="car-specs">
+                                <div class="car-spec"><i class="fas fa-calendar-alt"></i> 2022</div>
+                                <div class="car-spec"><i class="fas fa-gas-pump"></i> Petrol</div>
+                                <div class="car-spec"><i class="fas fa-cog"></i> Automatic</div>
+                                <div class="car-spec"><i class="fas fa-tachometer-alt"></i> 11,500 km</div>
+                            </div>
+                            <div class="car-features">
+                                <span class="feature-tag">MBUX System</span>
+                                <span class="feature-tag">Ambient Lighting</span>
+                                <span class="feature-tag">Keyless Go</span>
+                            </div>
+                            <div class="car-price">KES 7,500,000</div>
+                            <div class="car-actions">
+                                <a href="#" class="btn">More Details</a>
+                                <a href="#" class="btn btn-primary">Get a Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">Next</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MotorHub Kenya</h3>
+                    <p>Your trusted partner for premium vehicles in Kenya. We offer a wide selection of new and pre-owned cars with exceptional service and support.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cars.html">Cars</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="trade-in.html">Trade-In</a></li>
+                        <li><a href="financing.html">Financing</a></li>
+                        <li><a href="service-center.html">Service Center</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>MotorHub Center, Mombasa Road<br>Nairobi, Kenya</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <div>+254 700 123 456</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>info@motorhub.co.ke</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <div>Mon - Fri: 8:00 AM - 6:00 PM<br>Sat: 9:00 AM - 4:00 PM</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form>
+                        <input type="email" class="form-control" placeholder="Your Email" style="margin-bottom: 10px;">
+                        <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MotorHub Kenya. All Rights Reserved. | <a href="#" style="color: rgba(255,255,255,0.7);">Privacy Policy</a> | <a href="#" style="color: rgba(255,255,255,0.7);">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // Model dropdown based on make selection
+        document.getElementById('make-filter').addEventListener('change', function() {
+            const make = this.value;
+            const modelSelect = document.getElementById('model-filter');
+            
+            // Clear previous options
+            modelSelect.innerHTML = '<option value="">All Models</option>';
+            
+            if (make) {
+                // Add models based on selected make
+                const models = {
+                    toyota: ['Land Cruiser', 'Prado', 'Rav4', 'Hilux', 'Fortuner', 'Corolla', 'Camry'],
+                    mercedes: ['C-Class', 'E-Class', 'S-Class', 'GLE', 'GLC', 'GLA', 'A-Class'],
+                    bmw: ['X5', 'X3', 'X1', '3 Series', '5 Series', '7 Series', 'X7'],
+                    audi: ['Q7', 'Q5', 'Q3', 'A4', 'A6', 'A8', 'Q8'],
+                    honda: ['CR-V', 'Civic', 'Accord', 'HR-V', 'Pilot'],
+                    nissan: ['X-Trail', 'Qashqai', 'Navara', 'Patrol', 'Note'],
+                    ford: ['Ranger', 'Everest', 'EcoSport', 'Focus', 'Fiesta'],
+                    volkswagen: ['Tiguan', 'Touareg', 'Golf', 'Polo', 'Passat']
+                };
+                
+                if (models[make]) {
+                    models[make].forEach(model => {
+                        const option = document.createElement('option');
+                        option.value = model.toLowerCase();
+                        option.textContent = model;
+                        modelSelect.appendChild(option);
+                    });
+                }
+            }
+        });
+
+        // View toggle functionality
+        const viewButtons = document.querySelectorAll('.view-toggle button');
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                viewButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // In a real implementation, this would change the layout
+                // For now, we'll just show an alert
+                if (this.querySelector('.fa-list')) {
+                    alert('Switching to list view');
+                } else {
+                    alert('Switching to grid view');
+                }
+            });
+        });
+
+        // Filter application
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            // In a real implementation, this would filter the car results
+            alert('Filters applied! This would update the car listings in a real implementation.');
+        });
+
+        // Reset filters
+        document.querySelector('.btn').addEventListener('click', function() {
+            // Reset all form elements
+            document.querySelectorAll('select').forEach(select => {
+                select.selectedIndex = 0;
+            });
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                input.value = '';
+            });
+            
+            alert('Filters reset!');
+        });
+    </script>
+</body>
+</html>
